@@ -1,29 +1,61 @@
 import { Link } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import Card from '@/components/ui/Card';
+import { Text } from '@/components/ui/Text';
+import { colors } from '@/constants/colors';
+import { spacing } from '@/constants/theme';
 
 export default function ModalScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title">This is a modal</ThemedText>
-      <Link href="/" dismissTo style={styles.link}>
-        <ThemedText type="link">Go to home screen</ThemedText>
-      </Link>
-    </ThemedView>
+    <View style={styles.screen}>
+      <Card style={styles.card}>
+        <Text variant="title">Them nhanh</Text>
+        <Text variant="body" color="muted">
+          Day la diem vao de tao habit moi, them nhac nho hoac ghi nhanh muc tieu trong ngay.
+        </Text>
+
+        <View style={styles.option}>
+          <Text variant="subtitle">Them thoi quen tot</Text>
+          <Text variant="caption" color="muted">
+            Vi du: doc sach 10 phut, di bo 15 phut, uong them 1 ly nuoc.
+          </Text>
+        </View>
+
+        <View style={styles.option}>
+          <Text variant="subtitle">Them thoi quen can giam</Text>
+          <Text variant="caption" color="muted">
+            Vi du: hut thuoc, luot MXH qua muc, thuc khuya.
+          </Text>
+        </View>
+
+        <Link dismissTo href="/" style={styles.link}>
+          <Text variant="label" color="primary">
+            Quay ve Home
+          </Text>
+        </Link>
+      </Card>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: colors.background,
+    padding: spacing.lg,
     justifyContent: 'center',
-    padding: 20,
+  },
+  card: {
+    padding: spacing.lg,
+    gap: spacing.md,
+  },
+  option: {
+    gap: 4,
+    paddingVertical: spacing.xs,
   },
   link: {
-    marginTop: 15,
-    paddingVertical: 15,
+    marginTop: spacing.xs,
+    alignSelf: 'flex-start',
   },
 });

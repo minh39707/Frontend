@@ -1,53 +1,88 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+export const spacing = {
+  xs: 8,
+  sm: 12,
+  md: 16,
+  lg: 20,
+  xl: 24,
+  xxl: 28,
+};
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+export const radii = {
+  md: 16,
+  lg: 20,
+  xl: 24,
+  xxl: 28,
+  pill: 999,
+};
+
+export const shadows = {
+  card: {
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 6,
   },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+  soft: {
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.05,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 3,
   },
 };
 
-export const Fonts = Platform.select({
+export const fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
+    display: 'SF Pro Display',
+    text: 'SF Pro Text',
+    rounded: 'SF Pro Rounded',
+    mono: 'SF Mono',
+  },
+  android: {
+    display: 'sans-serif-medium',
+    text: 'sans-serif',
+    rounded: 'sans-serif-medium',
+    mono: 'monospace',
   },
   default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
+    display: 'System',
+    text: 'System',
+    rounded: 'System',
     mono: 'monospace',
   },
   web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+    display: "Inter, 'SF Pro Display', system-ui, sans-serif",
+    text: "Inter, 'SF Pro Text', system-ui, sans-serif",
+    rounded: "Inter, 'SF Pro Rounded', system-ui, sans-serif",
+    mono: "SFMono-Regular, Menlo, Monaco, Consolas, monospace",
   },
 });
+
+export const Colors = {
+  light: {
+    text: '#111827',
+    background: '#F4F7FB',
+    tint: '#3B82F6',
+    icon: '#6B7280',
+    tabIconDefault: '#94A3B8',
+    tabIconSelected: '#3B82F6',
+  },
+  dark: {
+    text: '#F8FAFC',
+    background: '#0F172A',
+    tint: '#60A5FA',
+    icon: '#CBD5E1',
+    tabIconDefault: '#94A3B8',
+    tabIconSelected: '#60A5FA',
+  },
+};
+
+export const Fonts = {
+  sans: fonts?.text ?? 'System',
+  serif: Platform.select({ ios: 'Times New Roman', default: 'serif', web: 'Georgia, serif' }) ?? 'serif',
+  rounded: fonts?.rounded ?? 'System',
+  mono: fonts?.mono ?? 'monospace',
+};
