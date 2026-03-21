@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { getCurrentUser, UserProfile } from '@/services/user.service';
+import { getCurrentUser } from '@/services/user.service';
 
 export function useUser() {
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

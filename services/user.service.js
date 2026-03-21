@@ -1,29 +1,15 @@
 import { colors } from '@/constants/colors';
 import { simulateRequest } from '@/services/api';
 
-export type ResourceStat = {
-  label: string;
-  value: number;
-  max: number;
-  color: string;
-  icon: string;
-};
-
-export type UserProfile = {
-  name: string;
-  level: number;
-  levelProgress: number;
-};
-
-export async function getCurrentUser(): Promise<UserProfile> {
+export async function getCurrentUser() {
   return simulateRequest({
-    name: 'Đào Hải Nam',
+    name: 'Dao Hai Nam',
     level: 0,
     levelProgress: 0,
   });
 }
 
-export async function getUserStats(): Promise<ResourceStat[]> {
+export async function getUserStats() {
   return simulateRequest([
     { label: 'HP', value: 0, max: 100, color: colors.danger, icon: 'heart' },
     { label: 'EXP', value: 0, max: 100, color: colors.primary, icon: 'flash' },

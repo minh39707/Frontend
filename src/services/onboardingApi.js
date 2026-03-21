@@ -1,7 +1,6 @@
 import { simulateRequest } from '@/services/api';
-import { EmailAuthPayload, EmailSignInPayload, OnboardingData } from '@/src/types/onboarding';
 
-function getDisplayNameFromEmail(email: string) {
+function getDisplayNameFromEmail(email) {
   const localPart = email.split('@')[0]?.trim();
 
   if (!localPart) {
@@ -15,7 +14,7 @@ function getDisplayNameFromEmail(email: string) {
     .join(' ');
 }
 
-export async function saveHabitToServer(data: OnboardingData) {
+export async function saveHabitToServer(data) {
   return simulateRequest(
     {
       success: true,
@@ -38,7 +37,7 @@ export async function signInWithGoogle() {
   );
 }
 
-export async function signInWithEmail(payload: EmailSignInPayload) {
+export async function signInWithEmail(payload) {
   return simulateRequest(
     {
       id: 'email-user-1',
@@ -50,7 +49,7 @@ export async function signInWithEmail(payload: EmailSignInPayload) {
   );
 }
 
-export async function signUpWithEmail(payload: EmailAuthPayload) {
+export async function signUpWithEmail(payload) {
   return simulateRequest(
     {
       id: 'email-user-1',

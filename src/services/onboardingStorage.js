@@ -1,7 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { PersistedOnboardingState } from '@/src/types/onboarding';
-
 const ONBOARDING_STORAGE_KEY = 'habit-app:onboarding-state';
 
 export async function loadOnboardingState() {
@@ -11,10 +9,10 @@ export async function loadOnboardingState() {
     return null;
   }
 
-  return JSON.parse(rawValue) as PersistedOnboardingState;
+  return JSON.parse(rawValue);
 }
 
-export async function saveOnboardingState(state: PersistedOnboardingState) {
+export async function saveOnboardingState(state) {
   await AsyncStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify(state));
 }
 

@@ -1,4 +1,4 @@
-export async function simulateRequest<T>(payload: T, delay = 180): Promise<T> {
+export async function simulateRequest(payload, delay = 180) {
   await new Promise((resolve) => setTimeout(resolve, delay));
   return payload;
 }

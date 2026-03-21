@@ -1,45 +1,8 @@
 import { colors } from '@/constants/colors';
 import { simulateRequest } from '@/services/api';
-import { getUserStats, ResourceStat } from '@/services/user.service';
+import { getUserStats } from '@/services/user.service';
 
-export type QuickAction = {
-  id: string;
-  title: string;
-  description: string;
-  color: string;
-  tintColor: string;
-  icon: 'run' | 'water' | 'meditate' | 'read';
-};
-
-export type CalendarDay = {
-  label: string;
-  date: number;
-  status: 'done' | 'warning' | 'empty';
-  isSelected?: boolean;
-};
-
-export type HabitSummary = {
-  id: string;
-  title: string;
-  progressLabel: string;
-  actionLabel: string;
-  icon: string;
-  iconColor: string;
-  iconBackground: string;
-  actionTone: 'warning' | 'primary' | 'success' | 'neutral';
-};
-
-export type DashboardData = {
-  todayProgress: number;
-  monthLabel: string;
-  stats: ResourceStat[];
-  quickActions: QuickAction[];
-  calendarDays: CalendarDay[];
-  goodHabits: HabitSummary[];
-  badHabits: HabitSummary[];
-};
-
-export async function getDashboardData(): Promise<DashboardData> {
+export async function getDashboardData() {
   const stats = await getUserStats();
 
   return simulateRequest({

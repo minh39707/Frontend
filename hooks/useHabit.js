@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { DashboardData, getDashboardData } from '@/services/habit.service';
+import { getDashboardData } from '@/services/habit.service';
 
 export function useHabit() {
-  const [dashboard, setDashboard] = useState<DashboardData | null>(null);
+  const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
