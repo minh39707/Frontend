@@ -23,7 +23,7 @@ function normalizePersistedState(persistedState) {
         onboardingCompleted: persistedState?.onboardingCompleted ?? persistedState?.completed ?? false,
         completed: persistedState?.completed ?? false,
         authMethod: persistedState?.authMethod ?? null,
-        userProfile: persistedState?.userProfile ?? null,
+        userProfile: persistedState?.userProfile ?? persistedState?.account ?? null,
         hasCustomTime: persistedState?.hasCustomTime ?? false,
         lastUpdatedAt: persistedState?.lastUpdatedAt ?? null,
     };
@@ -161,31 +161,16 @@ export function OnboardingProvider({ children }) {
             }
             let profile;
             if (payload.method === 'google') {
-                const response = await signInWithGoogle();
-                profile = {
-                    name: response.name,
-                    email: response.email,
-                    provider: 'google',
-                };
+                profile = await signInWithGoogle();
             }
             else if (payload.mode === 'signUp') {
-                const response = await signUpWithEmail(payload.payload);
-                profile = {
-                    name: response.name,
-                    email: response.email,
-                    provider: 'email',
-                };
+                profile = await signUpWithEmail(payload.payload);
             }
             else {
-                const response = await signInWithEmail(payload.payload);
-                profile = {
-                    name: response.name,
-                    email: response.email,
-                    provider: 'email',
-                };
+                profile = await signInWithEmail(payload.payload);
             }
             if (isOnboardingReadyForSave(persistedState.data.habit_name)) {
-                await saveHabitToServer(persistedState.data);
+                await saveHabitToServer(profile.id, persistedState.data);
             }
             updateData((current) => ({
                 ...current,

@@ -1,11 +1,10 @@
-import { DAY_OPTIONS, DEFAULT_TIME_BY_PERIOD, LIFE_AREA_OPTIONS, PRESET_HABITS } from '@/src/constants/onboarding';
-import { FrequencyType, HabitType, SpecificDay, TimePeriod } from '@/src/types/onboarding';
+import { DAY_OPTIONS, DEFAULT_TIME_BY_PERIOD, LIFE_AREA_OPTIONS, PRESET_HABITS } from '../constants/onboarding';
 
-export function getDefaultTimeForPeriod(period: TimePeriod) {
+export function getDefaultTimeForPeriod(period) {
   return DEFAULT_TIME_BY_PERIOD[period];
 }
 
-export function formatTimeLabel(time24: string) {
+export function formatTimeLabel(time24) {
   const [hourString, minuteString] = time24.split(':');
   const hour = Number(hourString);
   const minute = Number(minuteString);
@@ -15,11 +14,11 @@ export function formatTimeLabel(time24: string) {
   return `${normalizedHour}:${formattedMinute} ${period}`;
 }
 
-export function getLifeAreaLabel(value: string | null) {
+export function getLifeAreaLabel(value) {
   return LIFE_AREA_OPTIONS.find((option) => option.value === value)?.label ?? 'Not chosen yet';
 }
 
-export function getHabitDisplayName(habitName: string | null, habitType: HabitType | null) {
+export function getHabitDisplayName(habitName, habitType) {
   if (!habitName) {
     return 'Not selected yet';
   }
@@ -31,7 +30,7 @@ export function getHabitDisplayName(habitName: string | null, habitType: HabitTy
   return PRESET_HABITS.find((habit) => habit.value === habitName)?.label ?? habitName;
 }
 
-export function getFrequencyLabel(frequency: FrequencyType, specificDays: SpecificDay[]) {
+export function getFrequencyLabel(frequency, specificDays) {
   if (frequency === 'specific_days') {
     if (!specificDays.length) {
       return 'Choose at least one day';
@@ -55,19 +54,19 @@ export function getFrequencyLabel(frequency: FrequencyType, specificDays: Specif
   return 'Weekends';
 }
 
-export function isSpecificDaysValid(frequency: FrequencyType, specificDays: SpecificDay[]) {
+export function isSpecificDaysValid(frequency, specificDays) {
   return frequency !== 'specific_days' || specificDays.length > 0;
 }
 
-export function isOnboardingReadyForSchedule(habitName: string | null) {
+export function isOnboardingReadyForSchedule(habitName) {
   return Boolean(habitName);
 }
 
-export function isOnboardingReadyForSave(habitName: string | null) {
+export function isOnboardingReadyForSave(habitName) {
   return Boolean(habitName);
 }
 
-export function toTimePickerParts(time24: string) {
+export function toTimePickerParts(time24) {
   const [hourString, minuteString] = time24.split(':');
   const hour24 = Number(hourString);
   const minute = Number(minuteString);
@@ -77,11 +76,11 @@ export function toTimePickerParts(time24: string) {
   return {
     hour,
     minute,
-    meridiem: meridiem as 'AM' | 'PM',
+    meridiem,
   };
 }
 
-export function fromTimePickerParts(hour: number, minute: number, meridiem: 'AM' | 'PM') {
+export function fromTimePickerParts(hour, minute, meridiem) {
   let hour24 = hour % 12;
 
   if (meridiem === 'PM') {

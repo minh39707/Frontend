@@ -1,17 +1,6 @@
-import {
-  DayOption,
-  EducationItem,
-  FrequencyOption,
-  HabitOption,
-  LifeAreaOption,
-  OnboardingData,
-  TimePeriod,
-  TimePeriodOption,
-} from '@/src/types/onboarding';
-
 export const ONBOARDING_TOTAL_STEPS = 5;
 
-export const INITIAL_ONBOARDING_DATA: OnboardingData = {
+export const INITIAL_ONBOARDING_DATA = {
   life_area: null,
   life_area_label: null,
   habit_name: null,
@@ -22,13 +11,13 @@ export const INITIAL_ONBOARDING_DATA: OnboardingData = {
   specific_days: [],
 };
 
-export const DEFAULT_TIME_BY_PERIOD: Record<TimePeriod, string> = {
+export const DEFAULT_TIME_BY_PERIOD = {
   morning: '07:00',
   afternoon: '13:00',
   evening: '19:00',
 };
 
-export const LIFE_AREA_OPTIONS: LifeAreaOption[] = [
+export const LIFE_AREA_OPTIONS = [
   {
     label: 'Health & Fitness',
     value: 'health_fitness',
@@ -73,7 +62,7 @@ export const LIFE_AREA_OPTIONS: LifeAreaOption[] = [
   },
 ];
 
-export const EDUCATION_ITEMS: EducationItem[] = [
+export const EDUCATION_ITEMS = [
   {
     title: 'Start tiny',
     description: 'Small actions are easier to repeat and build momentum.',
@@ -91,7 +80,7 @@ export const EDUCATION_ITEMS: EducationItem[] = [
   },
 ];
 
-export const PRESET_HABITS: HabitOption[] = [
+export const PRESET_HABITS = [
   {
     label: 'Drink water',
     value: 'drink_water',
@@ -124,7 +113,7 @@ export const PRESET_HABITS: HabitOption[] = [
   },
 ];
 
-export const TIME_PERIOD_OPTIONS: TimePeriodOption[] = [
+export const TIME_PERIOD_OPTIONS = [
   {
     label: 'Morning',
     value: 'morning',
@@ -145,7 +134,7 @@ export const TIME_PERIOD_OPTIONS: TimePeriodOption[] = [
   },
 ];
 
-export const FREQUENCY_OPTIONS: FrequencyOption[] = [
+export const FREQUENCY_OPTIONS = [
   {
     label: 'Everyday',
     value: 'everyday',
@@ -168,7 +157,7 @@ export const FREQUENCY_OPTIONS: FrequencyOption[] = [
   },
 ];
 
-export const DAY_OPTIONS: DayOption[] = [
+export const DAY_OPTIONS = [
   { label: 'Monday', short: 'Mon', value: 'mon' },
   { label: 'Tuesday', short: 'Tue', value: 'tue' },
   { label: 'Wednesday', short: 'Wed', value: 'wed' },
@@ -194,4 +183,4 @@ export const ONBOARDING_COPY = {
   saveTitle: 'Save your progress',
   saveDescription:
     'Your first habit is ready. Continue to login and unlock your HabitForge dashboard.',
-} as const;
+};
