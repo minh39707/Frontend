@@ -17,6 +17,12 @@ export type SpecificDay = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun';
 
 export type AuthMethod = 'guest' | 'google' | 'email' | null;
 
+export interface UserProfile {
+  name: string;
+  email: string;
+  provider: Exclude<AuthMethod, 'guest' | null>;
+}
+
 export interface OnboardingData {
   life_area: LifeArea | null;
   life_area_label: string | null;
@@ -30,8 +36,10 @@ export interface OnboardingData {
 
 export interface PersistedOnboardingState {
   data: OnboardingData;
+  onboardingCompleted: boolean;
   completed: boolean;
   authMethod: AuthMethod;
+  userProfile: UserProfile | null;
   hasCustomTime: boolean;
   lastUpdatedAt: string | null;
 }
@@ -77,6 +85,11 @@ export interface DayOption {
 
 export interface EmailAuthPayload {
   fullName: string;
+  email: string;
+  password: string;
+}
+
+export interface EmailSignInPayload {
   email: string;
   password: string;
 }

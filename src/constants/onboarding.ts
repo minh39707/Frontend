@@ -193,5 +193,5 @@ export const ONBOARDING_COPY = {
     'Choose a time and rhythm that feels realistic, calm, and easy to keep.',
   saveTitle: 'Save your progress',
   saveDescription:
-    'Create an account to sync across devices, or continue as a guest and keep everything local.',
+    'Your first habit is ready. Continue to login and unlock your HabitForge dashboard.',
 } as const;

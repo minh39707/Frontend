@@ -1,5 +1,19 @@
 import { simulateRequest } from '@/services/api';
-import { EmailAuthPayload, OnboardingData } from '@/src/types/onboarding';
+import { EmailAuthPayload, EmailSignInPayload, OnboardingData } from '@/src/types/onboarding';
+
+function getDisplayNameFromEmail(email: string) {
+  const localPart = email.split('@')[0]?.trim();
+
+  if (!localPart) {
+    return 'Habit Hero';
+  }
+
+  return localPart
+    .split(/[._-]+/)
+    .filter(Boolean)
+    .map((segment) => `${segment.charAt(0).toUpperCase()}${segment.slice(1)}`)
+    .join(' ');
+}
 
 export async function saveHabitToServer(data: OnboardingData) {
   return simulateRequest(
@@ -19,6 +33,18 @@ export async function signInWithGoogle() {
       name: 'Avery Parker',
       email: 'avery@example.com',
       provider: 'google',
+    },
+    900
+  );
+}
+
+export async function signInWithEmail(payload: EmailSignInPayload) {
+  return simulateRequest(
+    {
+      id: 'email-user-1',
+      name: getDisplayNameFromEmail(payload.email),
+      email: payload.email,
+      provider: 'email',
     },
     900
   );
