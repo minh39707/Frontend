@@ -1,12 +1,12 @@
-import { StyleSheet, View } from 'react-native';
-import StatsBars from '@/components/dashboard/StatsBars';
-import Avatar from '@/components/ui/Avatar';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, shadows, spacing } from '@/constants/theme';
+﻿import { StyleSheet, View } from 'react-native';
+import StatsBars from '@/src/components/dashboard/StatsBars';
+import Avatar from '@/src/components/ui/Avatar';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, shadows, spacing } from '@/src/constants/theme';
 export default function Header({ user, stats }) {
     const safeUser = {
-        name: user.name || 'Đào Hải Nam',
+        name: user.name || 'ÄĂ o Háº£i Nam',
         level: user.level ?? 0,
         levelProgress: user.levelProgress ?? 0,
     };
@@ -61,3 +61,4 @@ const styles = StyleSheet.create({
         marginTop: 2,
     },
 });
+

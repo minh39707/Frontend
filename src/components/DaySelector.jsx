@@ -1,8 +1,8 @@
-import * as Haptics from 'expo-haptics';
+﻿import * as Haptics from 'expo-haptics';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 import { DAY_OPTIONS } from '@/src/constants/onboarding';
 export default function DaySelector({ selectedDays, onToggle }) {
     return (<View style={styles.wrap}>
@@ -49,3 +49,4 @@ const styles = StyleSheet.create({
         color: colors.surface,
     },
 });
+

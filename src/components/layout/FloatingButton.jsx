@@ -1,9 +1,9 @@
-import * as Haptics from 'expo-haptics';
+﻿import * as Haptics from 'expo-haptics';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Pressable, StyleSheet } from 'react-native';
-import { colors } from '@/constants/colors';
-import { radii, shadows } from '@/constants/theme';
+import { colors } from '@/src/constants/colors';
+import { radii, shadows } from '@/src/constants/theme';
 export default function FloatingButton({ onPress }) {
     const handlePress = () => {
         void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -33,3 +33,4 @@ const styles = StyleSheet.create({
         transform: [{ scale: 0.96 }],
     },
 });
+

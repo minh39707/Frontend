@@ -1,8 +1,8 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { fonts } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { fonts } from '@/src/constants/theme';
 import { authPalette } from './AuthScreenFrame';
 export default function AuthField({ label, icon, secureTextEntry, style, ...props }) {
     const [focused, setFocused] = useState(false);
@@ -70,3 +70,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+

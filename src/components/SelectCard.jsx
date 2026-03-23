@@ -1,9 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, shadows, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, shadows, spacing } from '@/src/constants/theme';
 export default function SelectCard({ title, description, icon, selected, onPress }) {
     const handlePress = () => {
         void Haptics.selectionAsync();
@@ -77,3 +77,4 @@ const styles = StyleSheet.create({
         lineHeight: 20,
     },
 });
+

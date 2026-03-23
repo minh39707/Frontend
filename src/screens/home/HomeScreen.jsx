@@ -3,16 +3,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import Card from '@/components/ui/Card';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import Card from '@/src/components/ui/Card';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 import EmptyStateCard from '@/src/components/EmptyStateCard';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import ScreenContainer from '@/src/components/ScreenContainer';
 import SecondaryButton from '@/src/components/SecondaryButton';
 import { useOnboarding } from '@/src/store/OnboardingContext';
 import { formatTimeLabel, getFrequencyLabel, getHabitDisplayName, getLifeAreaLabel } from '@/src/utils/onboarding';
+import { useEffect, useState } from 'react';
+import { getDashboardData } from '@/src/services/habit.service';
 const orderedDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const dayLabels = {
     mon: 'Mon',
@@ -42,7 +44,27 @@ function getTodayKey() {
 export default function HomeScreen() {
     const router = useRouter();
     const { authMethod, completed, data, hydrated, onboardingCompleted, resetOnboarding, userProfile } = useOnboarding();
-    if (!hydrated) {
+    const [dashboardData, setDashboardData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if (!hydrated || !onboardingCompleted) return;
+        
+        const fetchDashboard = async () => {
+            try {
+                const result = await getDashboardData();
+                setDashboardData(result);
+            } catch (error) {
+                console.error('Failed to load dashboard', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchDashboard();
+    }, [hydrated, onboardingCompleted]);
+
+    if (!hydrated || isLoading) {
         return (<View style={styles.loader}>
         <ActivityIndicator color={colors.primary} size="large"/>
       </View>);
@@ -63,34 +85,32 @@ export default function HomeScreen() {
     const frequencyLabel = getFrequencyLabel(data.frequency, data.specific_days);
     const activeDays = getActiveDays(data.frequency, data.specific_days);
     const todayKey = getTodayKey();
-    const streak = data.frequency === 'everyday' ? 14 : data.frequency === 'weekdays' ? 9 : data.frequency === 'weekends' ? 4 : Math.max(5, data.specific_days.length * 3);
-    const level = Math.max(3, Math.min(18, Math.ceil(streak / 2)));
-    const hp = Math.min(100, 72 + streak * 2);
-    const expGoal = level * 120;
-    const exp = Math.min(expGoal, 160 + streak * 24);
+    
+    // Stats from dashboard data
+    const hp = dashboardData?.stats?.find(s => s.label === 'HP')?.value ?? 0;
+    const streak = dashboardData?.stats?.find(s => s.label === 'Streaks')?.value ?? 0;
+    const exp = dashboardData?.stats?.find(s => s.label === 'EXP')?.value ?? 0;
+    const level = Math.max(1, Math.ceil(exp / 100)); // Default simplified level logic
+    const expGoal = level * 100;
     const expProgress = exp / expGoal;
+
     const profileName = userProfile?.name ?? 'Habit Hero';
     const providerLabel = authMethod === 'google' ? 'Google sync' : authMethod === 'email' ? 'Email account' : 'Guest mode';
-    const missionItems = [
-        {
-            icon: 'checkmark-circle-outline',
-            title: `Complete ${habitLabel}`,
-            caption: scheduleLabel,
-            done: false,
-        },
-        {
-            icon: 'flame-outline',
-            title: `Protect your ${streak}-day streak`,
-            caption: frequencyLabel,
-            done: true,
-        },
-        {
-            icon: 'sparkles-outline',
-            title: `Grow your ${lifeAreaLabel} routine`,
-            caption: 'One focused habit at a time.',
-            done: false,
-        },
-    ];
+    
+    const missionItems = dashboardData?.quickActions?.filter(a => a.id !== 'primary').map(action => ({
+        icon: 'sparkles-outline',
+        title: action.title,
+        caption: action.description,
+        done: false,
+    })) ?? [];
+
+    // Add primary habit mission
+    missionItems.unshift({
+        icon: 'checkmark-circle-outline',
+        title: `Complete ${habitLabel}`,
+        caption: scheduleLabel,
+        done: false,
+    });
     return (<ScreenContainer contentContainerStyle={styles.content}>
       <Animated.View entering={FadeInDown.duration(420)} style={styles.heroWrap}>
         <LinearGradient colors={['#307AF3', '#1E5ED8']} end={{ x: 1, y: 1 }} start={{ x: 0, y: 0 }} style={styles.hero}>
@@ -432,3 +452,4 @@ const styles = StyleSheet.create({
         marginTop: spacing.sm,
     },
 });
+

@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Text } from '@/components/ui/Text';
-import { spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { spacing } from '@/src/constants/theme';
 import BackHeader from '@/src/components/BackHeader';
-import CustomHabitModal from '@/src/components/CustomHabitModal';
 import HabitPreviewCard from '@/src/components/HabitPreviewCard';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import ScreenContainer from '@/src/components/ScreenContainer';
@@ -17,7 +15,6 @@ import { getHabitDisplayName } from '@/src/utils/onboarding';
 export default function SelectHabitScreen() {
     const router = useRouter();
     const { data, setHabitSelection } = useOnboarding();
-    const [showCustomModal, setShowCustomModal] = useState(false);
     const selectedHabitLabel = getHabitDisplayName(data.habit_name, data.habit_type);
     return (<ScreenContainer>
       <BackHeader onBack={() => router.back()} step={3} totalSteps={ONBOARDING_TOTAL_STEPS}/>
@@ -41,13 +38,8 @@ export default function SelectHabitScreen() {
 
       <View style={styles.actions}>
         <PrimaryButton disabled={!data.habit_name} label="Continue with this habit" onPress={() => router.push('/schedule')}/>
-        <SecondaryButton label="Create your own" onPress={() => setShowCustomModal(true)}/>
+        <SecondaryButton label="Create your own" onPress={() => router.push('/create-habit')}/>
       </View>
-
-      <CustomHabitModal initialValue={data.habit_type === 'custom' ? data.habit_name ?? '' : ''} onClose={() => setShowCustomModal(false)} onSave={(value) => {
-            setHabitSelection(value, 'custom');
-            setShowCustomModal(false);
-        }} visible={showCustomModal}/>
     </ScreenContainer>);
 }
 const styles = StyleSheet.create({
@@ -66,3 +58,4 @@ const styles = StyleSheet.create({
         marginTop: spacing.xl,
     },
 });
+

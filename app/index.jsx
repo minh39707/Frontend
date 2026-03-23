@@ -1,6 +1,6 @@
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+﻿import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Redirect } from 'expo-router';
-import { colors } from '@/constants/colors';
+import { colors } from '@/src/constants/colors';
 import { useOnboarding } from '@/src/store/OnboardingContext';
 export default function IndexScreen() {
     const { completed, hydrated, onboardingCompleted } = useOnboarding();
@@ -25,3 +25,4 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background,
     },
 });
+

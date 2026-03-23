@@ -1,11 +1,11 @@
-import * as Haptics from 'expo-haptics';
+﻿import * as Haptics from 'expo-haptics';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import FloatingButton from '@/components/layout/FloatingButton';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, shadows, spacing } from '@/constants/theme';
+import FloatingButton from '@/src/components/layout/FloatingButton';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, shadows, spacing } from '@/src/constants/theme';
 const iconMap = {
     index: { active: 'home', idle: 'home-outline' },
     analytics: { active: 'stats-chart', idle: 'stats-chart-outline' },
@@ -105,3 +105,4 @@ const styles = StyleSheet.create({
         top: -20,
     },
 });
+

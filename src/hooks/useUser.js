@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 
-import { getCurrentUser } from '@/services/user.service';
+import { getCurrentUser } from '@/src/services/user.service';
 
 export function useUser() {
   const [user, setUser] = useState(null);
@@ -23,3 +23,4 @@ export function useUser() {
 
   return { user, loading };
 }
+

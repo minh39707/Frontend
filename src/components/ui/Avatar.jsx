@@ -1,7 +1,7 @@
-import { StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii } from '@/constants/theme';
+﻿import { StyleSheet, View } from 'react-native';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii } from '@/src/constants/theme';
 export default function Avatar({ name, level, progress }) {
     const safeProgress = Math.max(0, Math.min(progress ?? 0, 1));
     const initials = name
@@ -65,3 +65,4 @@ const styles = StyleSheet.create({
         borderRadius: radii.pill,
     },
 });
+

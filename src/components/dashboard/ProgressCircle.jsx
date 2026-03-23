@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+﻿import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 export default function ProgressCircle({ progress, compact = false }) {
     const fillHeight = useSharedValue(0);
     useEffect(() => {
@@ -88,3 +88,4 @@ const styles = StyleSheet.create({
         lineHeight: 26,
     },
 });
+

@@ -1,8 +1,8 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 export default function StatsBars({ stats, compact = false }) {
     return (<View style={styles.container}>
       {stats.map((stat) => (<View key={stat.label} style={[styles.row, compact && styles.rowCompact]}>
@@ -83,3 +83,4 @@ const styles = StyleSheet.create({
         borderRadius: radii.pill,
     },
 });
+

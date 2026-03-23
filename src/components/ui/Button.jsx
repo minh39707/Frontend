@@ -1,8 +1,8 @@
-import * as Haptics from 'expo-haptics';
+﻿import * as Haptics from 'expo-haptics';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, shadows, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, shadows, spacing } from '@/src/constants/theme';
 export default function Button({ label, onPress, icon, variant = 'primary', style, }) {
     const palette = palettes[variant];
     const handlePress = () => {
@@ -55,3 +55,4 @@ const styles = StyleSheet.create({
         opacity: 0.92,
     },
 });
+

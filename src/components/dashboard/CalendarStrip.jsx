@@ -1,9 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
-import Card from '@/components/ui/Card';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import Card from '@/src/components/ui/Card';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 export default function CalendarStrip({ monthLabel, days }) {
     return (<Card style={styles.card}>
       <View style={styles.header}>
@@ -130,3 +130,4 @@ const styles = StyleSheet.create({
         fontWeight: '700',
     },
 });
+

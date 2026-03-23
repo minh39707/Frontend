@@ -1,9 +1,9 @@
-import { useRouter } from 'expo-router';
+﻿import { useRouter } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { spacing } from '@/src/constants/theme';
 import BackHeader from '@/src/components/BackHeader';
 import ScreenContainer from '@/src/components/ScreenContainer';
 import SelectCard from '@/src/components/SelectCard';
@@ -52,3 +52,4 @@ const styles = StyleSheet.create({
         gap: spacing.sm,
     },
 });
+

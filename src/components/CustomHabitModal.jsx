@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Modal, Platform, Pressable, StyleSheet, TextInput, View, } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import SecondaryButton from '@/src/components/SecondaryButton';
 export default function CustomHabitModal({ visible, initialValue = '', onClose, onSave }) {
@@ -94,3 +94,4 @@ const styles = StyleSheet.create({
         gap: spacing.xs,
     },
 });
+

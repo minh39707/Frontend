@@ -1,6 +1,6 @@
-import { StyleSheet, View } from 'react-native';
-import { colors } from '@/constants/colors';
-import { radii, shadows } from '@/constants/theme';
+﻿import { StyleSheet, View } from 'react-native';
+import { colors } from '@/src/constants/colors';
+import { radii, shadows } from '@/src/constants/theme';
 export default function Card({ children, style }) {
     return <View style={[styles.card, style]}>{children}</View>;
 }
@@ -11,3 +11,4 @@ const styles = StyleSheet.create({
         ...shadows.card,
     },
 });
+

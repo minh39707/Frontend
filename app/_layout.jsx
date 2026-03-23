@@ -1,8 +1,8 @@
-import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
+﻿import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import { colors } from '@/constants/colors';
+import { colors } from '@/src/constants/colors';
 import { OnboardingProvider } from '@/src/store/OnboardingContext';
 const navigationTheme = {
     ...DefaultTheme,
@@ -29,3 +29,4 @@ export default function RootLayout() {
       </ThemeProvider>
     </OnboardingProvider>);
 }
+

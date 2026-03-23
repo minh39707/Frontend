@@ -1,9 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 import ProgressBar from '@/src/components/ProgressBar';
 export default function BackHeader({ step, totalSteps, onBack }) {
     const handlePress = () => {
@@ -44,3 +44,4 @@ const styles = StyleSheet.create({
         opacity: 0.75,
     },
 });
+

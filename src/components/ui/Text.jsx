@@ -1,6 +1,6 @@
-import { StyleSheet, Text as RNText } from 'react-native';
-import { colors } from '@/constants/colors';
-import { fonts } from '@/constants/theme';
+﻿import { StyleSheet, Text as RNText } from 'react-native';
+import { colors } from '@/src/constants/colors';
+import { fonts } from '@/src/constants/theme';
 const variantStyles = {
     title: { fontSize: 24, lineHeight: 30, fontWeight: '700', fontFamily: fonts?.display },
     subtitle: { fontSize: 18, lineHeight: 24, fontWeight: '700', fontFamily: fonts?.display },
@@ -25,3 +25,4 @@ const styles = StyleSheet.create({
     },
 });
 export default Text;
+

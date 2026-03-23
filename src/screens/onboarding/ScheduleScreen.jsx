@@ -1,11 +1,11 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import Card from '@/components/ui/Card';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import Card from '@/src/components/ui/Card';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 import BackHeader from '@/src/components/BackHeader';
 import DaySelector from '@/src/components/DaySelector';
 import EmptyStateCard from '@/src/components/EmptyStateCard';
@@ -155,3 +155,4 @@ const styles = StyleSheet.create({
         marginTop: spacing.xl,
     },
 });
+

@@ -1,5 +1,5 @@
-import { colors } from '@/constants/colors';
-import { apiRequest } from '@/services/api';
+import { colors } from '@/src/constants/colors';
+import { apiRequest } from '@/src/services/api';
 import { loadOnboardingState } from '@/src/services/onboardingStorage';
 import { getFrequencyLabel, getHabitDisplayName } from '@/src/utils/onboarding';
 
@@ -10,11 +10,11 @@ function buildMonthLabel() {
   }).format(new Date());
 }
 
-function buildFallbackStats(completed) {
+function buildFallbackStats() {
   return [
-    { label: 'HP', value: completed ? 80 : 0, max: 100, color: colors.danger, icon: 'heart' },
-    { label: 'EXP', value: completed ? 35 : 0, max: 100, color: colors.primary, icon: 'flash' },
-    { label: 'Streaks', value: completed ? 2 : 0, max: 7, color: colors.warning, icon: 'flame' },
+    { label: 'HP', value: 0, max: 100, color: colors.danger, icon: 'heart' },
+    { label: 'EXP', value: 0, max: 100, color: colors.primary, icon: 'flash' },
+    { label: 'Streaks', value: 0, max: 7, color: colors.warning, icon: 'flame' },
   ];
 }
 
@@ -61,49 +61,28 @@ function buildCalendarDays(data) {
   });
 }
 
-function buildFallbackDashboard(data, completed) {
+function buildFallbackDashboard(data) {
   const habitLabel = data ? getHabitDisplayName(data.habit_name, data.habit_type) : 'Your first habit';
-  const frequencyLabel = data ? getFrequencyLabel(data.frequency, data.specific_days) : 'Choose a schedule';
-  const stats = buildFallbackStats(completed);
+  const stats = buildFallbackStats();
 
   return {
-    todayProgress: completed ? 0.68 : 0,
+    todayProgress: 0,
     monthLabel: buildMonthLabel(),
     stats,
-    quickActions: [
-      {
-        id: 'primary',
-        title: habitLabel,
-        description: data ? `At ${data.time_exact}` : 'Ready to start',
-        color: colors.primary,
-        tintColor: '#EDF5FF',
-        icon: toDashboardIcon(data?.habit_name ?? null),
-      },
-      {
-        id: 'meditate',
-        title: 'Mindful break',
-        description: '5 min',
-        color: colors.success,
-        tintColor: '#ECFDF5',
-        icon: 'meditate',
-      },
-    ],
+    quickActions: data
+      ? [
+          {
+            id: 'primary',
+            title: habitLabel,
+            description: `At ${data.time_exact}`,
+            color: colors.primary,
+            tintColor: '#EDF5FF',
+            icon: toDashboardIcon(data.habit_name),
+          },
+        ]
+      : [],
     calendarDays: buildCalendarDays(data),
-    goodHabits:
-      completed && data?.habit_name
-        ? [
-            {
-              id: data.habit_name,
-              title: habitLabel,
-              progressLabel: frequencyLabel,
-              actionLabel: 'Ready today',
-              icon: data.habit_name === 'drink_water' ? 'water' : 'book',
-              iconColor: colors.primary,
-              iconBackground: '#EEF5FF',
-              actionTone: 'primary',
-            },
-          ]
-        : [],
+    goodHabits: [],
     badHabits: [],
   };
 }
@@ -113,7 +92,7 @@ export async function getDashboardData() {
   const userProfile = persistedState?.userProfile ?? null;
 
   if (!userProfile?.id) {
-    return buildFallbackDashboard(persistedState?.data ?? null, persistedState?.completed);
+    return buildFallbackDashboard(persistedState?.data ?? null);
   }
 
   try {
@@ -126,6 +105,7 @@ export async function getDashboardData() {
       console.warn('Falling back to local dashboard data.', error);
     }
 
-    return buildFallbackDashboard(persistedState?.data ?? null, persistedState?.completed);
+    return buildFallbackDashboard(persistedState?.data ?? null);
   }
 }
+

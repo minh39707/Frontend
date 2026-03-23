@@ -1,8 +1,8 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { shadows, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { shadows, spacing } from '@/src/constants/theme';
 import { authPalette } from './AuthScreenFrame';
 const providers = [
     { provider: 'facebook', icon: 'logo-facebook', backgroundColor: '#EEF4FF', iconColor: '#1877F2' },
@@ -60,3 +60,4 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(214, 230, 255, 0.9)',
     },
 });
+

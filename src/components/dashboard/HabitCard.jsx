@@ -1,9 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
-import Card from '@/components/ui/Card';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import Card from '@/src/components/ui/Card';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 export default function HabitCard({ habit }) {
     const actionStyles = actionPalette[habit.actionTone];
     return (<Card style={styles.card}>
@@ -78,3 +78,4 @@ const styles = StyleSheet.create({
         gap: 6,
     },
 });
+

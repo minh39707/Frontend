@@ -1,9 +1,9 @@
-import { StyleSheet, View } from 'react-native';
+﻿import { StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import Card from '@/components/ui/Card';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { spacing } from '@/constants/theme';
+import Card from '@/src/components/ui/Card';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { spacing } from '@/src/constants/theme';
 export default function SettingsScreen() {
     return (<View style={styles.screen}>
       <Animated.View entering={FadeInDown.duration(450)} style={styles.content}>
@@ -31,3 +31,4 @@ const styles = StyleSheet.create({
         gap: spacing.sm,
     },
 });
+

@@ -1,5 +1,5 @@
-import { colors } from '@/constants/colors';
-import { apiRequest } from '@/services/api';
+﻿import { colors } from '@/src/constants/colors';
+import { apiRequest } from '@/src/services/api';
 import { loadOnboardingState } from '@/src/services/onboardingStorage';
 
 function buildFallbackProfile(name, completed) {
@@ -61,3 +61,4 @@ export async function getUserStats() {
     return buildFallbackStats(persistedState?.completed);
   }
 }
+

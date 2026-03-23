@@ -1,4 +1,4 @@
-import { apiRequest } from '@/services/api';
+﻿import { apiRequest } from '@/src/services/api';
 
 export async function saveHabitToServer(userId, data) {
   return apiRequest('/onboarding/sync', {
@@ -34,3 +34,4 @@ export async function signUpWithEmail(payload) {
 
   return response.user;
 }
+

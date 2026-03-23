@@ -1,6 +1,6 @@
-import { Tabs } from 'expo-router';
-import AssistantChat from '@/components/layout/AssistantChat';
-import BottomTab from '@/components/layout/BottomTab';
+﻿import { Tabs } from 'expo-router';
+import AssistantChat from '@/src/components/layout/AssistantChat';
+import BottomTab from '@/src/components/layout/BottomTab';
 export default function TabLayout() {
     return (<>
       <Tabs tabBar={(props) => <BottomTab {...props}/>} screenOptions={{
@@ -15,3 +15,4 @@ export default function TabLayout() {
       <AssistantChat />
     </>);
 }
+

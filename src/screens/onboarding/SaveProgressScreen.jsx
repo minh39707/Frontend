@@ -2,9 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { spacing } from '@/src/constants/theme';
 import BackHeader from '@/src/components/BackHeader';
 import EmptyStateCard from '@/src/components/EmptyStateCard';
 import HabitPreviewCard from '@/src/components/HabitPreviewCard';
@@ -31,7 +31,7 @@ export default function SaveProgressScreen() {
             return;
         }
         completeGettingStarted();
-        router.replace({ pathname: '/sign-in', params: { source: 'onboarding' } });
+        router.push({ pathname: '/sign-in', params: { source: 'onboarding' } });
     };
     return (<ScreenContainer>
       <BackHeader onBack={() => router.back()} step={5} totalSteps={ONBOARDING_TOTAL_STEPS}/>
@@ -121,3 +121,4 @@ const styles = StyleSheet.create({
         gap: spacing.xs,
     },
 });
+

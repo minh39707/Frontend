@@ -1,7 +1,7 @@
-import { StyleSheet, View } from 'react-native';
-import Button from '@/components/ui/Button';
-import { Text } from '@/components/ui/Text';
-import { spacing } from '@/constants/theme';
+﻿import { StyleSheet, View } from 'react-native';
+import Button from '@/src/components/ui/Button';
+import { Text } from '@/src/components/ui/Text';
+import { spacing } from '@/src/constants/theme';
 export default function Section({ title, actionLabel, children }) {
     return (<View style={styles.section}>
       <View style={styles.header}>
@@ -27,3 +27,4 @@ const styles = StyleSheet.create({
         letterSpacing: 0.7,
     },
 });
+

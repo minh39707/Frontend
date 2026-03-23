@@ -1,10 +1,10 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+﻿import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
-import { Text } from '@/components/ui/Text';
-import { spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { spacing } from '@/src/constants/theme';
 import AuthField from '@/src/components/auth/AuthField';
 import AuthPrimaryButton from '@/src/components/auth/AuthPrimaryButton';
 import AuthScreenFrame, { authPalette } from '@/src/components/auth/AuthScreenFrame';
@@ -154,3 +154,4 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
+

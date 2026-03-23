@@ -1,8 +1,8 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { radii, shadows, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { radii, shadows, spacing } from '@/src/constants/theme';
 const iconMap = {
     run: 'walk',
     water: 'water',
@@ -108,3 +108,4 @@ const styles = StyleSheet.create({
         color: '#4B5563',
     },
 });
+

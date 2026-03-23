@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 
-import { getDashboardData } from '@/services/habit.service';
+import { getDashboardData } from '@/src/services/habit.service';
 
 export function useHabit() {
   const [dashboard, setDashboard] = useState(null);
@@ -23,3 +23,4 @@ export function useHabit() {
 
   return { dashboard, loading };
 }
+

@@ -1,7 +1,7 @@
-import * as Haptics from 'expo-haptics';
+﻿import * as Haptics from 'expo-haptics';
 import { Pressable, StyleSheet } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { spacing } from '@/src/constants/theme';
 export default function SecondaryButton({ label, onPress, style }) {
     const handlePress = () => {
         void Haptics.selectionAsync();
@@ -24,3 +24,4 @@ const styles = StyleSheet.create({
         opacity: 0.72,
     },
 });
+

@@ -1,8 +1,8 @@
-import * as Haptics from 'expo-haptics';
+﻿import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native';
-import { Text } from '@/components/ui/Text';
-import { radii, shadows } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { radii, shadows } from '@/src/constants/theme';
 import { authPalette } from './AuthScreenFrame';
 export default function AuthPrimaryButton({ label, onPress, disabled, loading, icon }) {
     const handlePress = () => {
@@ -50,3 +50,4 @@ const styles = StyleSheet.create({
         fontWeight: '700',
     },
 });
+

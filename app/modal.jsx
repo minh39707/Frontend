@@ -1,9 +1,9 @@
-import { Link } from 'expo-router';
+﻿import { Link } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import Card from '@/components/ui/Card';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { spacing } from '@/constants/theme';
+import Card from '@/src/components/ui/Card';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { spacing } from '@/src/constants/theme';
 export default function ModalScreen() {
     return (<View style={styles.screen}>
       <Card style={styles.card}>
@@ -54,3 +54,4 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
 });
+

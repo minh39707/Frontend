@@ -1,11 +1,11 @@
-import { Ionicons } from '@expo/vector-icons';
+﻿import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import Card from '@/components/ui/Card';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { spacing } from '@/constants/theme';
+import Card from '@/src/components/ui/Card';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { spacing } from '@/src/constants/theme';
 import BackHeader from '@/src/components/BackHeader';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import ScreenContainer from '@/src/components/ScreenContainer';
@@ -71,3 +71,4 @@ const styles = StyleSheet.create({
         marginTop: spacing.xl,
     },
 });
+

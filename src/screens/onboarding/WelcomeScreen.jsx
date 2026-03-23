@@ -2,53 +2,62 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Text } from '@/components/ui/Text';
-import { colors } from '@/constants/colors';
-import { radii, spacing } from '@/constants/theme';
+import { Text } from '@/src/components/ui/Text';
+import { colors } from '@/src/constants/colors';
+import { radii, spacing } from '@/src/constants/theme';
 import PrimaryButton from '@/src/components/PrimaryButton';
 import ScreenContainer from '@/src/components/ScreenContainer';
+import SecondaryButton from '@/src/components/SecondaryButton';
 import { ONBOARDING_COPY } from '@/src/constants/onboarding';
+
 export default function WelcomeScreen() {
     const router = useRouter();
-    return (<ScreenContainer contentContainerStyle={styles.content} scroll={false}>
-      <Animated.View entering={FadeInDown.duration(450)} style={styles.hero}>
-        <View style={styles.logoBadge}>
-          <Ionicons color={colors.primary} name="sparkles-outline" size={28}/>
-        </View>
+    return (
+        <ScreenContainer contentContainerStyle={styles.content} scroll={false}>
+            <Animated.View entering={FadeInDown.duration(450)} style={styles.hero}>
+                <View style={styles.logoBadge}>
+                    <Ionicons color={colors.primary} name="sparkles-outline" size={28} />
+                </View>
 
-        <View style={styles.illustration}>
-          <View style={styles.illustrationCard}>
-            <View style={styles.dotRow}>
-              <View style={[styles.dot, styles.dotPrimary]}/>
-              <View style={[styles.dot, styles.dotSoft]}/>
-              <View style={[styles.dot, styles.dotWarm]}/>
-            </View>
-            <View style={styles.illustrationLine}/>
-            <View style={[styles.illustrationLine, styles.illustrationLineShort]}/>
-            <View style={styles.progressPill}>
-              <Ionicons color={colors.primary} name="checkmark" size={16}/>
-              <Text variant="label" color="primary">
-                Gentle progress
-              </Text>
-            </View>
-          </View>
-        </View>
-      </Animated.View>
+                <View style={styles.illustration}>
+                    <View style={styles.illustrationCard}>
+                        <View style={styles.dotRow}>
+                            <View style={[styles.dot, styles.dotPrimary]} />
+                            <View style={[styles.dot, styles.dotSoft]} />
+                            <View style={[styles.dot, styles.dotWarm]} />
+                        </View>
+                        <View style={styles.illustrationLine} />
+                        <View style={[styles.illustrationLine, styles.illustrationLineShort]} />
+                        <View style={styles.progressPill}>
+                            <Ionicons color={colors.primary} name="checkmark" size={16} />
+                            <Text variant="label" color="primary">
+                                Gentle progress
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+            </Animated.View>
 
-      <Animated.View entering={FadeInDown.duration(520).delay(50)} style={styles.copyWrap}>
-        <Text variant="title" style={styles.title}>
-          {ONBOARDING_COPY.welcomeTitle}
-        </Text>
-        <Text variant="body" color="muted" style={styles.description}>
-          {ONBOARDING_COPY.welcomeDescription}
-        </Text>
-      </Animated.View>
+            <Animated.View entering={FadeInDown.duration(520).delay(50)} style={styles.copyWrap}>
+                <Text variant="title" style={styles.title}>
+                    {ONBOARDING_COPY.welcomeTitle}
+                </Text>
+                <Text variant="body" color="muted" style={styles.description}>
+                    {ONBOARDING_COPY.welcomeDescription}
+                </Text>
+            </Animated.View>
 
-      <Animated.View entering={FadeInDown.duration(580).delay(100)} style={styles.actions}>
-        <PrimaryButton label="Let's Begin" onPress={() => router.push('/life-area')}/>
-      </Animated.View>
-    </ScreenContainer>);
-}
+            <Animated.View entering={FadeInDown.duration(580).delay(100)} style={styles.actions}>
+                <PrimaryButton label="Let's Begin" onPress={() => router.push('/life-area')} />
+                    <SecondaryButton
+                        label="Login if you have account"
+                        onPress={() => router.push('/sign-in')}
+                    />
+                </Animated.View>
+            </ScreenContainer>
+        );
+    }
+
 const styles = StyleSheet.create({
     content: {
         justifyContent: 'space-between',
@@ -135,3 +144,4 @@ const styles = StyleSheet.create({
         gap: spacing.sm,
     },
 });
+
