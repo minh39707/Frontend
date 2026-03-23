@@ -1,18 +1,18 @@
-﻿import * as Haptics from 'expo-haptics';
+import * as Haptics from 'expo-haptics';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Text } from '@/src/components/ui/Text';
 import { colors } from '@/src/constants/colors';
 import { radii, shadows, spacing } from '@/src/constants/theme';
-export default function Button({ label, onPress, icon, variant = 'primary', style, }) {
-    const palette = palettes[variant];
+export default function Button({ label, title, onPress, icon, variant = 'primary', style, textStyle }) {
+    const palette = palettes[variant] || palettes.primary;
     const handlePress = () => {
         void Haptics.selectionAsync();
         onPress?.();
     };
     return (<Pressable onPress={handlePress} style={({ pressed }) => [styles.button, palette.container, pressed && styles.pressed, style]}>
       {icon ? <View style={styles.icon}>{icon}</View> : null}
-      <Text variant="label" style={palette.label}>
-        {label}
+      <Text variant="label" style={[palette.label, textStyle]}>
+        {label || title}
       </Text>
     </Pressable>);
 }
@@ -26,13 +26,17 @@ const palettes = {
         label: { color: colors.primary },
     },
     ghost: {
-        container: { backgroundColor: colors.surfaceMuted },
+        container: { backgroundColor: 'transparent' },
         label: { color: colors.text },
     },
     accent: {
         container: { backgroundColor: '#FFF2E2' },
         label: { color: colors.warning },
     },
+    outline: {
+        container: { backgroundColor: 'transparent', borderWidth: 1, borderColor: colors.error },
+        label: { color: colors.error },
+    }
 };
 const styles = StyleSheet.create({
     button: {

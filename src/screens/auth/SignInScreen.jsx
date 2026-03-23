@@ -1,4 +1,4 @@
-﻿import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
@@ -14,29 +14,15 @@ import { useOnboarding } from '@/src/store/OnboardingContext';
 export default function SignInScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
-  const { authenticate, isSaving, onboardingCompleted, saveError } = useOnboarding();
+  const { authenticate, isSaving, saveError } = useOnboarding();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
   const sourceParam = params.source;
   const source = Array.isArray(sourceParam) ? sourceParam[0] ?? 'onboarding' : sourceParam ?? 'onboarding';
-  const canProceedToAuth = onboardingCompleted || source === 'onboarding';
-
-  const ensureGettingStarted = () => {
-    if (canProceedToAuth) {
-      return true;
-    }
-
-    setError('Please finish Getting Started before logging in.');
-    router.replace('/welcome');
-    return false;
-  };
 
   const handleEmailSignIn = async () => {
-    if (!ensureGettingStarted()) {
-      return;
-    }
 
     if (!email.trim() || !password.trim()) {
       setError('Please enter your email and password.');
@@ -61,10 +47,6 @@ export default function SignInScreen() {
   };
 
   const handleSocialSignIn = async (provider) => {
-    if (!ensureGettingStarted()) {
-      return;
-    }
-
     if (provider !== 'google') {
       setError(`${provider[0].toUpperCase()}${provider.slice(1)} sign in will be added next. Use Google or email for now.`);
       return;

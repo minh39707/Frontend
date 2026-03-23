@@ -30,11 +30,9 @@ function getExpoHost() {
 }
 
 export function getApiBaseUrl() {
-  const envUrl = process.env.EXPO_PUBLIC_API_URL?.trim();
-
-  if (envUrl) {
-    return stripTrailingSlash(envUrl);
-  }
+  // Temporary bypass: ignore EXPO_PUBLIC_API_URL to ensure 
+  // the app hits our Express backend instead of hitting Supabase directly.
+  // const envUrl = process.env.EXPO_PUBLIC_API_URL?.trim();
 
   const expoHost = getExpoHost();
 

@@ -156,9 +156,6 @@ export function OnboardingProvider({ children }) {
         setIsSaving(true);
         setSaveError(null);
         try {
-            if (!persistedState.onboardingCompleted && !isOnboardingReadyForSave(persistedState.data.habit_name)) {
-                throw new Error('Please complete Getting Started before logging in.');
-            }
             let profile;
             if (payload.method === 'google') {
                 profile = await signInWithGoogle();

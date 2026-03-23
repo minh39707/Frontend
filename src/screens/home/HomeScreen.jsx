@@ -43,12 +43,13 @@ function getTodayKey() {
 }
 export default function HomeScreen() {
     const router = useRouter();
-    const { authMethod, completed, data, hydrated, onboardingCompleted, resetOnboarding, userProfile } = useOnboarding();
+    const { authMethod, completed, data, hydrated, resetOnboarding, userProfile } = useOnboarding();
     const [dashboardData, setDashboardData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (!hydrated || !onboardingCompleted) return;
+        // Only fetch if hydrated and the user has completed login
+        if (!hydrated || !completed) return;
         
         const fetchDashboard = async () => {
             try {
@@ -62,55 +63,60 @@ export default function HomeScreen() {
         };
 
         fetchDashboard();
-    }, [hydrated, onboardingCompleted]);
+    }, [hydrated, completed]);
 
-    if (!hydrated || isLoading) {
+    if (!hydrated || (completed && isLoading)) {
         return (<View style={styles.loader}>
         <ActivityIndicator color={colors.primary} size="large"/>
       </View>);
     }
-    if (!onboardingCompleted) {
-        return (<ScreenContainer contentContainerStyle={styles.emptyWrap}>
-        <EmptyStateCard actionLabel="Start Getting Started" description="Finish the required setup flow before you unlock your HabitForge dashboard." onAction={() => router.replace('/welcome')} title="Dashboard locked"/>
-      </ScreenContainer>);
-    }
+
     if (!completed) {
         return (<ScreenContainer contentContainerStyle={styles.emptyWrap}>
-        <EmptyStateCard actionLabel="Continue to Login" description="Your habit plan is ready. Login or create an account to enter the dashboard." onAction={() => router.replace('/sign-in?source=onboarding')} title="One more step"/>
+        <EmptyStateCard actionLabel="Continue to Login" description="Login or create an account to enter the dashboard." onAction={() => router.replace('/welcome')} title="Dashboard locked"/>
       </ScreenContainer>);
     }
-    const habitLabel = getHabitDisplayName(data.habit_name, data.habit_type);
-    const lifeAreaLabel = getLifeAreaLabel(data.life_area);
-    const scheduleLabel = `${data.time_period[0].toUpperCase()}${data.time_period.slice(1)} at ${formatTimeLabel(data.time_exact)}`;
-    const frequencyLabel = getFrequencyLabel(data.frequency, data.specific_days);
-    const activeDays = getActiveDays(data.frequency, data.specific_days);
+
+    // Determine primary habit from dashboardData if available, fallback to local data if not 
+    // (useful for immediate feedback before refresh)
+    const primaryAction = dashboardData?.quickActions?.[0];
+    const hasAnyHabits = !!primaryAction || data.habit_name;
+
+    const habitLabel = primaryAction ? primaryAction.title : data.habit_name ? getHabitDisplayName(data.habit_name, data.habit_type) : 'No Focus';
+    const lifeAreaLabel = data.life_area ? getLifeAreaLabel(data.life_area) : 'General';
+    const rawTimePeriod = data.time_period || 'morning';
+    const rawTimeExact = data.time_exact || '07:00';
+    const scheduleLabel = primaryAction ? primaryAction.description : `${rawTimePeriod[0].toUpperCase()}${rawTimePeriod.slice(1)} at ${formatTimeLabel(rawTimeExact)}`;
+    const frequencyLabel = data.frequency ? getFrequencyLabel(data.frequency, data.specific_days || []) : 'everyday';
+    const activeDays = getActiveDays(data.frequency || 'everyday', data.specific_days || []);
     const todayKey = getTodayKey();
     
     // Stats from dashboard data
-    const hp = dashboardData?.stats?.find(s => s.label === 'HP')?.value ?? 0;
+    const hp = dashboardData?.stats?.find(s => s.label === 'HP')?.value ?? 50;
     const streak = dashboardData?.stats?.find(s => s.label === 'Streaks')?.value ?? 0;
     const exp = dashboardData?.stats?.find(s => s.label === 'EXP')?.value ?? 0;
-    const level = Math.max(1, Math.ceil(exp / 100)); // Default simplified level logic
+    const level = Math.max(1, Math.floor(exp / 100) + 1); // Default simplified level logic
     const expGoal = level * 100;
-    const expProgress = exp / expGoal;
+    const expProgress = (exp % 100) / 100;
 
     const profileName = userProfile?.name ?? 'Habit Hero';
     const providerLabel = authMethod === 'google' ? 'Google sync' : authMethod === 'email' ? 'Email account' : 'Guest mode';
     
-    const missionItems = dashboardData?.quickActions?.filter(a => a.id !== 'primary').map(action => ({
-        icon: 'sparkles-outline',
+    let missionItems = dashboardData?.quickActions?.map(action => ({
+        icon: action.icon === 'water' ? 'water-outline' : action.icon === 'run' ? 'walk-outline' : 'sparkles-outline',
         title: action.title,
         caption: action.description,
         done: false,
     })) ?? [];
 
-    // Add primary habit mission
-    missionItems.unshift({
-        icon: 'checkmark-circle-outline',
-        title: `Complete ${habitLabel}`,
-        caption: scheduleLabel,
-        done: false,
-    });
+    if (!hasAnyHabits) {
+        missionItems = [{
+            icon: 'add-circle-outline',
+            title: 'Add your first habit',
+            caption: 'Tap "Adjust My Habit" below to get started',
+            done: false,
+        }];
+    }
     return (<ScreenContainer contentContainerStyle={styles.content}>
       <Animated.View entering={FadeInDown.duration(420)} style={styles.heroWrap}>
         <LinearGradient colors={['#307AF3', '#1E5ED8']} end={{ x: 1, y: 1 }} start={{ x: 0, y: 0 }} style={styles.hero}>

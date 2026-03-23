@@ -1,4 +1,4 @@
-﻿import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
@@ -12,25 +12,14 @@ import { useOnboarding } from '@/src/store/OnboardingContext';
 export default function SignUpScreen() {
     const router = useRouter();
     const params = useLocalSearchParams();
-    const { authenticate, isSaving, onboardingCompleted, saveError } = useOnboarding();
+    const { authenticate, isSaving, saveError } = useOnboarding();
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [inlineError, setInlineError] = useState(null);
     const source = params.source ?? 'onboarding';
-    const canProceedToAuth = onboardingCompleted || source === 'onboarding';
-    const ensureGettingStarted = () => {
-        if (canProceedToAuth) {
-            return true;
-        }
-        setInlineError('Please finish Getting Started before creating your account.');
-        router.replace('/welcome');
-        return false;
-    };
+
     const handleSubmit = async () => {
-        if (!ensureGettingStarted()) {
-            return;
-        }
         if (!fullName.trim() || !email.trim() || !password.trim()) {
             setInlineError('Please fill in your name, email, and password.');
             return;
@@ -53,9 +42,6 @@ export default function SignUpScreen() {
         }
     };
     const handleSocialAuth = async (provider) => {
-        if (!ensureGettingStarted()) {
-            return;
-        }
         if (provider !== 'google') {
             setInlineError(`${provider[0].toUpperCase()}${provider.slice(1)} sign up will be added next. Use Google or email for now.`);
             return;
