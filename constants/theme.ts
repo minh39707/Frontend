@@ -10,10 +10,10 @@ export const spacing = {
 };
 
 export const radii = {
-  md: 16,
-  lg: 20,
-  xl: 24,
-  xxl: 28,
+  md: 18,
+  lg: 22,
+  xl: 26,
+  xxl: 30,
   pill: 999,
 };
 
@@ -21,16 +21,16 @@ export const shadows = {
   card: {
     shadowColor: '#0F172A',
     shadowOpacity: 0.08,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 10 },
-    elevation: 6,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 7,
   },
   soft: {
     shadowColor: '#0F172A',
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
+    shadowOpacity: 0.06,
+    shadowRadius: 14,
     shadowOffset: { width: 0, height: 6 },
-    elevation: 3,
+    elevation: 4,
   },
 };
 
@@ -63,12 +63,12 @@ export const fonts = Platform.select({
 
 export const Colors = {
   light: {
-    text: '#111827',
-    background: '#F4F7FB',
-    tint: '#3B82F6',
-    icon: '#6B7280',
-    tabIconDefault: '#94A3B8',
-    tabIconSelected: '#3B82F6',
+    text: '#0F172A',
+    background: '#F4F6FA',
+    tint: '#3D5AFE',
+    icon: '#9CA3AF',
+    tabIconDefault: '#9CA3AF',
+    tabIconSelected: '#3D5AFE',
   },
   dark: {
     text: '#F8FAFC',

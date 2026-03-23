@@ -4,10 +4,11 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 import { Text } from '@/components/ui/Text';
 import { colors } from '@/constants/colors';
 import { radii, spacing } from '@/constants/theme';
+import { timingConfig } from '@/src/utils/reanimated';
 export default function ProgressCircle({ progress, compact = false }) {
     const fillHeight = useSharedValue(0);
     useEffect(() => {
-        fillHeight.value = withTiming(progress, { duration: 900 });
+        fillHeight.value = withTiming(progress, timingConfig(900));
     }, [fillHeight, progress]);
     const circleSize = compact ? 108 : 124;
     const innerSize = compact ? 80 : 94;

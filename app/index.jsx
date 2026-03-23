@@ -1,21 +1,21 @@
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { Redirect } from 'expo-router';
 import { colors } from '@/constants/colors';
-import { useOnboarding } from '@/src/store/OnboardingContext';
+import { useAuth } from '@/src/store/AuthContext';
 export default function IndexScreen() {
-    const { completed, hydrated, onboardingCompleted } = useOnboarding();
+    const { hydrated, isAuthenticated, onboardingCompleted } = useAuth();
     if (!hydrated) {
         return (<View style={styles.loader}>
         <ActivityIndicator color={colors.primary} size="large"/>
       </View>);
     }
-    if (completed) {
+    if (isAuthenticated) {
         return <Redirect href="/(tabs)"/>;
     }
-    if (onboardingCompleted) {
-        return <Redirect href={{ pathname: '/sign-in', params: { source: 'onboarding' } }}/>;
+    if (!onboardingCompleted) {
+        return <Redirect href="/onboarding"/>;
     }
-    return <Redirect href="/welcome"/>;
+    return <Redirect href="/sign-in"/>;
 }
 const styles = StyleSheet.create({
     loader: {

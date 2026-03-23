@@ -21,10 +21,10 @@ export default function AuthField({ label, icon, secureTextEntry, style, ...prop
         }} onFocus={(event) => {
             setFocused(true);
             props.onFocus?.(event);
-        }} placeholderTextColor="#85A0C8" secureTextEntry={secureTextEntry && !passwordVisible} selectionColor={authPalette.accent} style={[styles.input, style]}/>
+        }} placeholderTextColor="#8EA0C4" secureTextEntry={secureTextEntry && !passwordVisible} selectionColor={authPalette.accent} style={[styles.input, style]}/>
 
         {showPasswordToggle ? (<Pressable accessibilityLabel={passwordVisible ? 'Hide password' : 'Show password'} accessibilityRole="button" onPress={() => setPasswordVisible((current) => !current)} style={styles.toggle}>
-            <Ionicons color="#6E89AF" name={passwordVisible ? 'eye-off-outline' : 'eye-outline'} size={18}/>
+            <Ionicons color="#6C83A8" name={passwordVisible ? 'eye-off-outline' : 'eye-outline'} size={18}/>
           </Pressable>) : null}
       </View>
     </View>);
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     inputShellFocused: {
         borderColor: authPalette.border,
-        backgroundColor: '#F4F8FF',
+        backgroundColor: '#FFFFFF',
     },
     input: {
         flex: 1,

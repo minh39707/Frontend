@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FloatingButton from '@/components/layout/FloatingButton';
 import { Text } from '@/components/ui/Text';
 import { colors } from '@/constants/colors';
-import { radii, shadows, spacing } from '@/constants/theme';
+import { shadows, spacing } from '@/constants/theme';
 const iconMap = {
     index: { active: 'home', idle: 'home-outline' },
     analytics: { active: 'stats-chart', idle: 'stats-chart-outline' },
@@ -34,7 +34,11 @@ export default function BottomTab({ state, descriptors, navigation }) {
                 focused && styles.itemActive,
                 pressed && styles.itemPressed,
             ]}>
-        <Ionicons name={focused ? iconMap[route.name].active : iconMap[route.name].idle} size={20} color={focused ? colors.primary : colors.textMuted}/>
+        <Ionicons
+          name={focused ? iconMap[route.name].active : iconMap[route.name].idle}
+          size={focused ? 22 : 20}
+          color={focused ? colors.primary : colors.neutral}
+        />
         <Text variant="caption" style={[styles.label, focused && styles.labelActive]}>
           {label}
         </Text>
@@ -63,9 +67,11 @@ const styles = StyleSheet.create({
     bar: {
         width: '100%',
         backgroundColor: colors.surface,
-        borderRadius: 30,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
+        borderRadius: 28,
+        borderWidth: 1,
+        borderColor: colors.borderSoft,
+        paddingHorizontal: 12,
+        paddingVertical: 12,
         flexDirection: 'row',
         alignItems: 'center',
         ...shadows.card,
@@ -80,20 +86,23 @@ const styles = StyleSheet.create({
     },
     item: {
         flex: 1,
-        minHeight: 56,
+        minHeight: 58,
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 4,
-        borderRadius: radii.lg,
+        gap: 5,
+        borderRadius: 20,
     },
     itemActive: {
-        backgroundColor: '#EEF5FF',
+        backgroundColor: colors.primarySoft,
+        borderWidth: 1,
+        borderColor: '#DBE4FF',
+        transform: [{ scale: 1.04 }],
     },
     itemPressed: {
-        opacity: 0.8,
+        opacity: 0.84,
     },
     label: {
-        color: colors.textMuted,
+        color: colors.neutral,
         fontSize: 11,
     },
     labelActive: {
@@ -102,6 +111,6 @@ const styles = StyleSheet.create({
     },
     fabWrap: {
         position: 'absolute',
-        top: -20,
+        top: -30,
     },
 });

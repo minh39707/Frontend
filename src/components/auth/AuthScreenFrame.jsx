@@ -1,22 +1,24 @@
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, View } from 'react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import { Text } from '@/components/ui/Text';
+import { colors } from '@/constants/colors';
 import { fonts, radii, shadows, spacing } from '@/constants/theme';
 import ScreenContainer from '@/src/components/ScreenContainer';
+import { fadeInDown } from '@/src/utils/reanimated';
 export const authPalette = {
-    accent: '#1E6DEB',
-    accentAlt: '#4B8AF5',
-    accentSoft: '#EAF3FF',
-    accentSurface: '#F5F9FF',
-    backgroundStart: '#EEF6FF',
-    backgroundEnd: '#DDEBFF',
-    border: '#D6E6FF',
-    card: '#FCFDFF',
-    input: '#EAF3FF',
-    inputText: '#10213F',
-    muted: '#6D7A90',
+    accent: colors.primary,
+    accentAlt: colors.secondary,
+    accentSoft: colors.primarySoft,
+    accentSurface: '#F5F8FF',
+    backgroundStart: '#EEF3FF',
+    backgroundEnd: '#DCE5FF',
+    border: '#D9E4FF',
+    card: colors.surface,
+    input: '#F3F7FF',
+    inputText: colors.text,
+    muted: '#6B7280',
 };
 export default function AuthScreenFrame({ title, subtitle, children }) {
     return (<ScreenContainer contentContainerStyle={styles.content} style={styles.screen}>
@@ -24,7 +26,7 @@ export default function AuthScreenFrame({ title, subtitle, children }) {
       <View pointerEvents="none" style={styles.glowTop}/>
       <View pointerEvents="none" style={styles.glowBottom}/>
 
-      <Animated.View entering={FadeInDown.duration(420)} style={styles.card}>
+      <Animated.View entering={fadeInDown(420)} style={styles.card}>
         <View style={styles.brandPill}>
           <View style={styles.brandIcon}>
             <Ionicons color={authPalette.accent} name="sparkles-outline" size={16}/>

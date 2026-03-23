@@ -1,7 +1,7 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 import { Text } from '@/components/ui/Text';
 import { spacing } from '@/constants/theme';
@@ -9,35 +9,17 @@ import AuthField from '@/src/components/auth/AuthField';
 import AuthPrimaryButton from '@/src/components/auth/AuthPrimaryButton';
 import AuthScreenFrame, { authPalette } from '@/src/components/auth/AuthScreenFrame';
 import AuthSocialSection from '@/src/components/auth/AuthSocialSection';
-import { useOnboarding } from '@/src/store/OnboardingContext';
+import { useAuth } from '@/src/store/AuthContext';
+import { fadeInDown } from '@/src/utils/reanimated';
 
 export default function SignInScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams();
-  const { authenticate, isSaving, onboardingCompleted, saveError } = useOnboarding();
+  const { authenticate, isSaving, saveError } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-  const sourceParam = params.source;
-  const source = Array.isArray(sourceParam) ? sourceParam[0] ?? 'onboarding' : sourceParam ?? 'onboarding';
-  const canProceedToAuth = onboardingCompleted || source === 'onboarding';
-
-  const ensureGettingStarted = () => {
-    if (canProceedToAuth) {
-      return true;
-    }
-
-    setError('Please finish Getting Started before logging in.');
-    router.replace('/welcome');
-    return false;
-  };
-
   const handleEmailSignIn = async () => {
-    if (!ensureGettingStarted()) {
-      return;
-    }
-
     if (!email.trim() || !password.trim()) {
       setError('Please enter your email and password.');
       return;
@@ -61,10 +43,6 @@ export default function SignInScreen() {
   };
 
   const handleSocialSignIn = async (provider) => {
-    if (!ensureGettingStarted()) {
-      return;
-    }
-
     if (provider !== 'google') {
       setError(`${provider[0].toUpperCase()}${provider.slice(1)} sign in will be added next. Use Google or email for now.`);
       return;
@@ -82,7 +60,7 @@ export default function SignInScreen() {
 
   return (
     <AuthScreenFrame subtitle="Login now" title="Welcome to HabitForge">
-      <Animated.View entering={FadeInDown.duration(470).delay(30)} style={styles.form}>
+      <Animated.View entering={fadeInDown(470, 30)} style={styles.form}>
         <AuthField
           autoCapitalize="none"
           autoComplete="email"
@@ -104,7 +82,7 @@ export default function SignInScreen() {
         />
       </Animated.View>
 
-      <Animated.View entering={FadeInDown.duration(510).delay(60)} style={styles.actionBlock}>
+      <Animated.View entering={fadeInDown(510, 60)} style={styles.actionBlock}>
         {error || saveError ? (
           <Text variant="body" style={styles.errorText}>
             {error ?? saveError}
@@ -115,11 +93,11 @@ export default function SignInScreen() {
         <AuthSocialSection onPress={(provider) => void handleSocialSignIn(provider)} />
       </Animated.View>
 
-      <Animated.View entering={FadeInDown.duration(560).delay(90)} style={styles.footer}>
+      <Animated.View entering={fadeInDown(560, 90)} style={styles.footer}>
         <Text style={styles.footerText} variant="body">
           Don&apos;t have an account?
         </Text>
-        <Pressable onPress={() => router.push(`/sign-up?source=${source}`)}>
+        <Pressable onPress={() => router.push('/sign-up')}>
           <Text style={styles.footerLink} variant="body">
             Sign Up
           </Text>

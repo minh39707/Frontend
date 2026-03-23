@@ -1,5 +1,5 @@
 import { simulateRequest } from '@/services/api';
-import { EmailAuthPayload, EmailSignInPayload, OnboardingData } from '@/src/types/onboarding';
+import { EmailAuthPayload, EmailSignInPayload } from '@/src/types/auth';
 
 function getDisplayNameFromEmail(email: string) {
   const localPart = email.split('@')[0]?.trim();
@@ -13,17 +13,6 @@ function getDisplayNameFromEmail(email: string) {
     .filter(Boolean)
     .map((segment) => `${segment.charAt(0).toUpperCase()}${segment.slice(1)}`)
     .join(' ');
-}
-
-export async function saveHabitToServer(data: OnboardingData) {
-  return simulateRequest(
-    {
-      success: true,
-      syncedAt: new Date().toISOString(),
-      data,
-    },
-    850
-  );
 }
 
 export async function signInWithGoogle() {

@@ -13,7 +13,7 @@ export default function AuthPrimaryButton({ label, onPress, disabled, loading, i
         onPress?.();
     };
     return (<Pressable accessibilityRole="button" disabled={disabled || loading} onPress={handlePress} style={({ pressed }) => [styles.pressable, pressed && !disabled && !loading && styles.pressablePressed]}>
-      <LinearGradient colors={disabled ? ['#9CC0FF', '#8CB4F8'] : [authPalette.accentAlt, authPalette.accent]} end={{ x: 1, y: 1 }} start={{ x: 0, y: 0 }} style={styles.gradient}>
+      <LinearGradient colors={disabled ? ['#A8B8FF', '#93A7FF'] : [authPalette.accentAlt, authPalette.accent]} end={{ x: 1, y: 1 }} start={{ x: 0, y: 0 }} style={styles.gradient}>
         {loading ? <ActivityIndicator color="#FFFFFF"/> : null}
         {!loading && icon ? <View style={styles.icon}>{icon}</View> : null}
         {!loading ? (<Text color="white" style={styles.label} variant="label">
