@@ -1,31 +1,34 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
+import { Pressable, StyleSheet } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
-import { Text } from '@/src/components/ui/Text';
-import { spacing } from '@/src/constants/theme';
-import AuthField from '@/src/components/auth/AuthField';
-import AuthPrimaryButton from '@/src/components/auth/AuthPrimaryButton';
-import AuthScreenFrame, { authPalette } from '@/src/components/auth/AuthScreenFrame';
-import AuthSocialSection from '@/src/components/auth/AuthSocialSection';
-import { useOnboarding } from '@/src/store/OnboardingContext';
+import { Text } from "@/src/components/ui/Text";
+import { spacing } from "@/src/constants/theme";
+import AuthField from "@/src/components/auth/AuthField";
+import AuthPrimaryButton from "@/src/components/auth/AuthPrimaryButton";
+import AuthScreenFrame, {
+  authPalette,
+} from "@/src/components/auth/AuthScreenFrame";
+import AuthSocialSection from "@/src/components/auth/AuthSocialSection";
+import { useOnboarding } from "@/src/store/OnboardingContext";
 
 export default function SignInScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
   const { authenticate, isSaving, saveError } = useOnboarding();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const sourceParam = params.source;
-  const source = Array.isArray(sourceParam) ? sourceParam[0] ?? 'onboarding' : sourceParam ?? 'onboarding';
+  const source = Array.isArray(sourceParam)
+    ? (sourceParam[0] ?? "onboarding")
+    : (sourceParam ?? "onboarding");
 
   const handleEmailSignIn = async () => {
-
     if (!email.trim() || !password.trim()) {
-      setError('Please enter your email and password.');
+      setError("Please enter your email and password.");
       return;
     }
 
@@ -33,30 +36,25 @@ export default function SignInScreen() {
 
     try {
       await authenticate({
-        method: 'email',
-        mode: 'signIn',
+        method: "email",
+        mode: "signIn",
         payload: {
           email: email.trim(),
           password,
         },
       });
-      router.replace('/(tabs)');
+      router.replace("/(tabs)");
     } catch {
       return;
     }
   };
 
   const handleSocialSignIn = async (provider) => {
-    if (provider !== 'google') {
-      setError(`${provider[0].toUpperCase()}${provider.slice(1)} sign in will be added next. Use Google or email for now.`);
-      return;
-    }
-
     setError(null);
 
     try {
-      await authenticate({ method: 'google' });
-      router.replace('/(tabs)');
+      await authenticate({ method: provider });
+      router.replace("/(tabs)");
     } catch {
       return;
     }
@@ -64,7 +62,10 @@ export default function SignInScreen() {
 
   return (
     <AuthScreenFrame subtitle="Login now" title="Welcome to HabitForge">
-      <Animated.View entering={FadeInDown.duration(470).delay(30)} style={styles.form}>
+      <Animated.View
+        entering={FadeInDown.duration(470).delay(30)}
+        style={styles.form}
+      >
         <AuthField
           autoCapitalize="none"
           autoComplete="email"
@@ -86,18 +87,30 @@ export default function SignInScreen() {
         />
       </Animated.View>
 
-      <Animated.View entering={FadeInDown.duration(510).delay(60)} style={styles.actionBlock}>
+      <Animated.View
+        entering={FadeInDown.duration(510).delay(60)}
+        style={styles.actionBlock}
+      >
         {error || saveError ? (
           <Text variant="body" style={styles.errorText}>
             {error ?? saveError}
           </Text>
         ) : null}
 
-        <AuthPrimaryButton label="Login" loading={isSaving} onPress={() => void handleEmailSignIn()} />
-        <AuthSocialSection onPress={(provider) => void handleSocialSignIn(provider)} />
+        <AuthPrimaryButton
+          label="Login"
+          loading={isSaving}
+          onPress={() => void handleEmailSignIn()}
+        />
+        <AuthSocialSection
+          onPress={(provider) => void handleSocialSignIn(provider)}
+        />
       </Animated.View>
 
-      <Animated.View entering={FadeInDown.duration(560).delay(90)} style={styles.footer}>
+      <Animated.View
+        entering={FadeInDown.duration(560).delay(90)}
+        style={styles.footer}
+      >
         <Text style={styles.footerText} variant="body">
           Don&apos;t have an account?
         </Text>
@@ -116,16 +129,16 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   errorText: {
-    color: '#D64545',
-    textAlign: 'center',
+    color: "#D64545",
+    textAlign: "center",
   },
   actionBlock: {
     gap: spacing.md,
   },
   footer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 6,
   },
   footerText: {
@@ -133,7 +146,6 @@ const styles = StyleSheet.create({
   },
   footerLink: {
     color: authPalette.accent,
-    fontWeight: '700',
+    fontWeight: "700",
   },
 });
-

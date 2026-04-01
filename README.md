@@ -1,50 +1,149 @@
-# Welcome to your Expo app 👋
+# HabitForge Frontend
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Frontend mobile app for HabitForge, built with Expo Router and React Native.
 
-## Get started
+This app covers:
+- onboarding flow for choosing a habit and schedule
+- authentication with email and OAuth
+- Supabase session handling on mobile
+- dashboard experience for the signed-in user
 
-1. Install dependencies
+## Tech Stack
 
-   ```bash
-   npm install
-   ```
+- Expo SDK 54
+- React Native 0.81
+- Expo Router
+- Supabase Auth
+- AsyncStorage
 
-2. Start the app
+## Supported Auth Methods
 
-   ```bash
-   npx expo start
-   ```
+- Email / password
+- Google
+- Facebook
+- GitHub
 
-In the output, you'll find options to open the app in a
+OAuth is handled with Supabase plus `expo-web-browser` and a mobile callback route at `auth-callback`.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```txt
+app/
+  (auth)/              Auth routes
+  (onboarding)/        Onboarding routes
+  (tabs)/              Main app tabs
+  auth-callback.jsx    OAuth callback screen
+src/
+  components/          Reusable UI
+  constants/           Theme and onboarding constants
+  hooks/               App hooks
+  screens/             Screen implementations
+  services/            API, Supabase, auth, storage
+  store/               Global onboarding/auth state
+  utils/               Helpers
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Environment Variables
 
-## Learn more
+Create `Frontend/.env` with:
 
-To learn more about developing your project with Expo, look at the following resources:
+```env
+EXPO_PUBLIC_SUPABASE_URL=your_supabase_project_url
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+EXPO_PUBLIC_API_URL=http://localhost:4000/api
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Notes:
+- `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY` are required.
+- The app currently resolves the backend base URL from the Expo host for local development, so `EXPO_PUBLIC_API_URL` is optional for the current setup.
 
-## Join the community
+## Local Development
 
-Join our community of developers creating universal apps.
+Install dependencies:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npm install
+```
+
+Start the frontend:
+
+```bash
+npx expo start
+```
+
+Useful shortcuts:
+
+```bash
+npm run android
+npm run ios
+npm run web
+npm run lint
+```
+
+## Backend Requirement
+
+This frontend expects the local backend to be running on port `4000`.
+
+From the `Backend` folder:
+
+```bash
+npm install
+npm run dev
+```
+
+Default backend URL assumptions in the app:
+- Expo device on LAN: `http://<your-dev-machine-ip>:4000/api`
+- Android emulator: `http://10.0.2.2:4000/api`
+- iOS simulator / local web: `http://localhost:4000/api`
+
+## OAuth Setup Notes
+
+For Google, Facebook, and GitHub login to work:
+
+1. Enable the provider in Supabase Auth.
+2. Configure the provider credentials in Supabase.
+3. Add mobile redirect URLs in Supabase Auth URL Configuration.
+
+Typical redirect URL during Expo Go development:
+
+```txt
+exp://<your-local-ip>:8081/--/auth-callback
+```
+
+Typical wildcard allow-list entry:
+
+```txt
+exp://**/--/auth-callback
+```
+
+The app also supports a custom callback route:
+
+```txt
+project://auth-callback
+```
+
+## Current App Behavior
+
+- onboarding state is stored locally per account scope
+- signed-in sessions are persisted with Supabase
+- onboarding habit sync is sent to the backend after authentication when needed
+- dashboard requests use the authenticated access token
+
+## Lint Status
+
+`npm run lint` currently passes with warnings only. Some warnings are older repo-level cleanup items such as BOM markers and a few unused variables in unrelated files.
+
+## Troubleshooting
+
+If OAuth seems stuck or returns to the wrong place:
+
+- make sure the backend is running
+- confirm `.env` has valid Supabase values
+- confirm Supabase redirect URLs match the current Expo URL
+- restart Metro with cache clear:
+
+```bash
+npx expo start -c
+```
+
+If the app cannot reach the API, verify that your phone and dev machine are on the same network and that port `4000` is reachable.
